@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.fh_muenster.its.info2.vokabel"},{"l":"prak5"}];updateSearchResults();

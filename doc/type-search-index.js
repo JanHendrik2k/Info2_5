@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"prak5","l":"DatenbankManager"},{"p":"prak5","l":"Element"},{"p":"prak5","l":"Liste"},{"p":"prak5","l":"VerketteteListeManager"},{"p":"de.fh_muenster.its.info2.vokabel","l":"VocabularyDatabase"},{"p":"prak5","l":"VokabelManager"},{"p":"prak5","l":"VokabelTrainer"}];updateSearchResults();
