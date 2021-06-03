@@ -18,36 +18,22 @@ public class DatenbankManager implements VokabelManager {
 	 * So startet man die Datenbank:.
 	 * 
 	 * The HSQLDB server can be started with the following commands: cd
-	 * <pfad_zu_diesem_projekt> java -cp lib/hsqldb.jar org.hsqldb.server.Server
-	 * --database.0 file:db_vokabel --dbname.0 vokabeltrainer
+	 * <pfad_zu_diesem_projekt> java -cp lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:db_vokabel --dbname.0 vokabeltrainer
 	 * 
 	 * @throws SQLException
 	 * 
 	 */
 	VocabularyDatabase db = new VocabularyDatabase();
 
-	public DatenbankManager() throws Exception {
-
-		this("jdbc:hsqldb:hsql://localhost/vokabeltrainer", "usr", "ooz1ooHi");
-
-		db.wipe();
-
-		db.insert("who", "Wer");
-		db.insert("wants", "will");
-		db.insert("to", "zu");
-		db.insert("live", "leben");
-		db.insert("forever", "ewig");
-
-		db.print(db.list());
-
-		db.insert("Hallo", "Test");
-	}
-
 	/**
 	 * Connect to a storage database and store the connection.
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException 
 	 */
+	public DatenbankManager() throws Exception {
+		this("jdbc:hsqldb:hsql://localhost/vokabeltrainer", "usr", "ooz1ooHi");
+		db.wipe();
+	}
+
 
 	/**
 	 * Connect to a database and store the connection.
@@ -83,7 +69,6 @@ public class DatenbankManager implements VokabelManager {
 
 		statement.setString(1, en);
 		statement.setString(2, de);
-
 		statement.execute();
 	}
 
@@ -133,6 +118,8 @@ public class DatenbankManager implements VokabelManager {
 	public boolean save(Element toSave) {
 		try {
 			db.insert(toSave.getEng(), toSave.getGer());
+			System.out.println(toSave.getGer() + ", " + toSave.getEng() + " hinzugefuegt");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,7 +144,7 @@ public class DatenbankManager implements VokabelManager {
 		Random random = new Random();
 		int zahl;
 		ArrayList<Element> list = getAllVokabeln();
-		zahl = random.nextInt(list.size() - 1);
+		zahl = random.nextInt(list.size());
 		return list.get(zahl);
 	}
 

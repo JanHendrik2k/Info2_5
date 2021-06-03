@@ -1,1 +1,9 @@
-aaa;bbb
+Ja;yes
+Nein;no
+Vielleicht;maybe
+Bitte;please
+Danke;thank you
+Hotel?;Trivago!
+Eigelb;yellow from the egg
+Sonntag;sunday
+Heute;today

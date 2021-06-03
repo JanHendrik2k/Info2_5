@@ -279,7 +279,6 @@ public class Liste {
 		} else {
 			int i = 1;
 			while (current != null) {
-				System.out.println(i + ", Ger: " + current.getGer() + ", Eng: " + current.getEng());
 				list.add(current);
 				current = current.getNext();
 				i++;

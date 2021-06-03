@@ -12,7 +12,6 @@ public class VerketteteListeManager implements VokabelManager {
 
 	public VerketteteListeManager() {
 		list = new Liste();
-
 		Scanner sc = new Scanner(System.in);
 	}
 
@@ -29,11 +28,10 @@ public class VerketteteListeManager implements VokabelManager {
 
 	@Override
 	public Element getRandomElement() {
-
 		Random random = new Random();
 		int zahl;
 		ArrayList<Element> list = getAllVokabeln();
-		zahl = random.nextInt(list.size()-1);
+		zahl = random.nextInt(list.size());
 		return list.get(zahl);
 	}
 
