@@ -6,10 +6,7 @@ public class Element {
 	private Element prev;
 	private Element next;
 
-
-
 	public Element() {
-	
 	}
 
 	public String getGer() {

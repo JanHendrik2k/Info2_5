@@ -10,10 +10,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Das Hauptmenue mit Konsolenabfragen, etc.
+ * @author Jan Hendrik
+ *
+ */
 public class VokabelTrainer {
 
 	private final String DEFAULTPATH = "src/prak5/";
 
+	//main
 	public static void main(String[] args) throws Exception {
 		new VokabelTrainer();
 	}
@@ -28,6 +34,7 @@ public class VokabelTrainer {
 		VokabelManager[] managers = new VokabelManager[2];
 		int managerPos = 0;
 
+		//Strategien im Array Speichern
 		managers[0] = new DatenbankManager();
 		managers[1] = new VerketteteListeManager();
 		manager = managers[managerPos];
@@ -41,8 +48,9 @@ public class VokabelTrainer {
 			eingabe = sc.nextLine();
 			menueValue = eingabe;
 
+			//Konsolenabfrage
 			switch (menueValue) {
-			// TODO
+			//liest aus einer Datei, speichert valide Vokabeln
 			case "read":
 				System.out.println("Aus welcher Datei soll gelesen werden?");
 				String readFile = sc.nextLine();
@@ -78,9 +86,10 @@ public class VokabelTrainer {
 				myReader.close();
 				break;
 
+			//Schreibt Vokabeln in eine Datei, falls die richtige Strategy ausgewaehlt ist
 			case "write":
 				if (manager instanceof DatenbankManager) {
-					System.out.println("Dumm? lololol");
+					System.err.println("Wir haben eine Datenbank :)");
 				} else {
 
 					ArrayList<Element> list = manager.getAllVokabeln();
@@ -108,6 +117,7 @@ public class VokabelTrainer {
 				}
 				break;
 
+			//fuegt eine neue Vokabel hinzu
 			case "add":
 				System.out.print("Deutsch: ");
 				ger = sc.nextLine();
@@ -120,19 +130,20 @@ public class VokabelTrainer {
 				manager.save(newElem);
 				break;
 
+			//loescht eine bestehende Vokabel ueber das deutsche Wort
 			case "delete":
 				System.out.print("Vokabel eingeben welche geloescht werden soll (auf Deutsch): ");
 				String gerDel = sc.nextLine();
 				manager.delete(gerDel);
 				break;
 
+			//fragt Vokabeln der aktuellen Strategie ab
 			case "call":
 				ArrayList<Element> list = manager.getAllVokabeln();
 				Random random;
 				int randLang;
 				Element element;
 				while (true) {
-
 					random = new Random();
 					randLang = random.nextInt(2);
 					element = manager.getRandomElement();
@@ -171,6 +182,7 @@ public class VokabelTrainer {
 				}
 				break;
 
+			//Zeigt alle Vokabeln wunderschoen und porfessionell auf sysout an
 			case "show":
 				int i = 1;
 				for (Element elem : manager.getAllVokabeln()) {
@@ -179,12 +191,14 @@ public class VokabelTrainer {
 				}
 				break;
 
+			//schließt das Programm
 			case "close":
 				System.out.println("Juhu, dieses coole Programm wird jetzt beendet :)))))");
 				sc.close();
 				System.exit(0);
 				break;
 
+			//wechselt die Strategie
 			case "switch":
 				if (managerPos == 0) {
 					managerPos = 1;
@@ -196,11 +210,13 @@ public class VokabelTrainer {
 					System.out.println("zur Datenbank Strategie gewechselt");
 				}
 				break;
+			//Manpage
 			case "help":
 				System.out.println(
 						"Befehle:\nread -> Datei auslesen und Vokabeln zur Liste / Datenbank hinzufuegen\nwrite -> Liste in einer Datei sichern\nadd -> Datei zur Liste / Datenbank hinzufuegen\ndelete -> Datei aus der Liste / Datenbank loeschen\ncall -> Vokabeln aus der Liste / Datenbank abfragen\nshow -> Alle Vokabeln in der Liste anzeigen\nswitch -> strategie wechseln\nclose -> Programm beenden\n");
 				break;
 
+				//Invalide Eingabe
 			default:
 				System.out.println("Eingabe fehlerhaft");
 				break;

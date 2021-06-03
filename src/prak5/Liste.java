@@ -268,6 +268,11 @@ public class Liste {
 		bw.close();
 	}
 
+	/**
+	 * Iteriert ueber die verkettete Liste und speichert Elemente in einer ArrayList
+	 * @param first erstes Element
+	 * @return ArrayList mit allen Vokabeln
+	 */
 	public ArrayList<Element> getAll(Element first) {
 		ArrayList<Element> list = new ArrayList<Element>();
 		Element current = first;
@@ -287,6 +292,10 @@ public class Liste {
 		return list;
 	}
 
+	/**
+	 * Methode getAll aber fuer das Interface prepared
+	 * @return ArrayList mit allen Vokabeln
+	 */
 	public ArrayList<Element> getAllForStrategy() {
 		return getAll(first);
 	}
