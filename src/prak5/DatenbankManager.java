@@ -55,78 +55,35 @@ public class DatenbankManager implements VokabelManager {
 		this.connection = DriverManager.getConnection(url, username, password);
 	}
 
+	
 	/**
-	 * Insert an English vocabulary and it's German translation. Note: Having
-	 * multiple translations for a single vocabulary is not possible.
+	 * Speichert die Vokabel in die Datenbank
 	 * 
-	 * @param en An English vocabulary.
-	 * @param de The German translation of the English vocabulary.
-	 * @throws SQLException
+	 * @param toSave die zu speichernde Vokabel
+	 * @return boolean
 	 */
-	public void insert(String en, String de) throws SQLException {
-		String sql = "INSERT INTO vokabeln (en, de) VALUES (?, ?)";
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-
-		statement.setString(1, en);
-		statement.setString(2, de);
-		statement.execute();
-	}
-
-	/**
-	 * Wipe all vocabulary entries from the database.
-	 * 
-	 * @throws SQLException
-	 */
-	public void wipe() throws SQLException {
-		String sql = "DELETE FROM vokabeln";
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-
-		statement.execute();
-	}
-
-	/**
-	 * Select vocabulary entries from the database.
-	 * 
-	 * @return A result set containing every vocabulary entry in the database.
-	 * @throws SQLException
-	 */
-	public ResultSet list() throws SQLException {
-		String sql = "SELECT * FROM vokabeln";
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-
-		return statement.executeQuery();
-	}
-
-	/**
-	 * Print the content of a ResultSet from a select statement to the vocabularies.
-	 * 
-	 * @param rs A ResultSet of a previously executed SQL query.
-	 * @throws SQLException
-	 */
-	public void print(ResultSet rs) throws SQLException {
-		System.out.println("List of Vocabularies:");
-
-		for (int i = 1; rs.next(); i++) {
-			System.out.printf("\t[%d]: EN: %s, DE: %s, Correct: %d, Wrong: %d\n", i, rs.getString("en"),
-					rs.getString("de"), rs.getInt("korrekt"), rs.getInt("falsch"));
-		}
-
-		System.out.println();
-	}
-
 	@Override
 	public boolean save(Element toSave) {
 		try {
 			db.insert(toSave.getEng(), toSave.getGer());
 			System.out.println(toSave.getGer() + ", " + toSave.getEng() + " hinzugefuegt");
+			return true;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
+
 	}
 
+	
+	/**
+	 * Loescht eine Vokabel ueber den deutschen Namen aus der Datenbank
+	 * 
+	 * @param toDeleteGer der deutsche name der Vokabel
+	 * @return boolean
+	 */
 	@Override
 	public boolean delete(String toDeleteGer) throws SQLException {
 
@@ -136,9 +93,13 @@ public class DatenbankManager implements VokabelManager {
 		statement.setString(1, toDeleteGer);
 
 		statement.execute();
-		return false;
+		return (statement.executeUpdate() == 1);
 	}
 
+	/**
+	 * holt sich ein random element aus der der arraylist
+	 * @return die array list
+	 */
 	@Override
 	public Element getRandomElement() {
 		Random random = new Random();
@@ -147,7 +108,10 @@ public class DatenbankManager implements VokabelManager {
 		zahl = random.nextInt(list.size());
 		return list.get(zahl);
 	}
-
+	
+	/**
+	 * holt sich die ArrayList aus der Klasse "Liste"
+	 */
 	@Override
 	public ArrayList<Element> getAllVokabeln() {
 		ArrayList<Element> list = new ArrayList<Element>();
